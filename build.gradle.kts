@@ -2,10 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-	id("org.jetbrains.kotlin.jvm")
-	id("org.jetbrains.kotlin.plugin.spring")
 	id("org.springframework.boot")
 	id("io.spring.dependency-management")
+	kotlin("jvm")
+	kotlin("plugin.spring")
 }
 
 
@@ -20,10 +20,10 @@ allprojects {
 }
 
 subprojects {
-	apply(plugin = "org.jetbrains.kotlin.jvm")
-	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 	apply(plugin = "org.springframework.boot")
 	apply(plugin = "io.spring.dependency-management")
+	apply(plugin = "org.jetbrains.kotlin.jvm")
+	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
 	java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -35,15 +35,17 @@ subprojects {
 	}
 
 	dependencies {
+		implementation("org.jetbrains.kotlin:kotlin-reflect")
 //		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-//		implementation("org.jetbrains.kotlin:kotlin-reflect")
-//		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+//    implementation("org.springframework.cloud:spring-cloud-starter-task")
+//    implementation("org.springframework.cloud:spring-cloud-stream")
+//    implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-streams")
 	}
 
 	tasks.withType<KotlinCompile> {
 		kotlinOptions {
 			freeCompilerArgs = listOf("-Xjsr305=strict")
-			jvmTarget = "17"
+			jvmTarget = JavaVersion.VERSION_17.toString()
 		}
 	}
 
@@ -53,5 +55,9 @@ subprojects {
 }
 
 tasks.withType<BootJar> {
+	enabled = false
+}
+
+tasks.withType<Jar> {
 	enabled = false
 }
