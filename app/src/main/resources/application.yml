@@ -1,18 +1,28 @@
 spring:
   application:
-    name: edm-app
-#  profiles:
-#    active: local
+    name: edm
 
-# ==> DEV/STG/PROD
-#  cloud:
-#    vault:
-#      authentication: AWS_IAM
-#      kv:
-#        enabled: true
-#        backend: secret
-#  config:
-#    import: vault://<secret>/<vault-application-name>
+---
 
-app:
-  name: edm-app
+spring:
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    vault:
+      enabled: false
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test,dev
+    import: vault://
+  cloud:
+    vault:
+      enabled: true
+      uri: ...
+      authentication: AWS_IAM
+      kv:
+        backend: secrets
+        default-context: ${spring.application.name}

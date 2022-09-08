@@ -15,7 +15,7 @@ allprojects {
 
 	repositories {
 		mavenCentral()
-		maven { url = uri("https://repo.spring.io/milestone") }
+//		maven { url = uri("https://repo.spring.io/milestone") }
 	}
 }
 
@@ -26,13 +26,8 @@ subprojects {
 	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
 	java.sourceCompatibility = JavaVersion.VERSION_17
-
-	extra["springCloudVersion"] = "2022.0.0-M4"
-	dependencyManagement {
-		imports {
-			mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-		}
-	}
+//	extra["springCloudVersion"] = "2022.0.0-M4"
+	extra["springCloudVersion"] = "2021.0.4"
 
 	dependencies {
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -40,6 +35,12 @@ subprojects {
 //    implementation("org.springframework.cloud:spring-cloud-starter-task")
 //    implementation("org.springframework.cloud:spring-cloud-stream")
 //    implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-streams")
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+		}
 	}
 
 	tasks.withType<KotlinCompile> {

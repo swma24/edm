@@ -18,16 +18,6 @@ RUN apk add --no-cache tzdata && \
 COPY ops/app ops/app
 COPY --from=build app/build/libs/*.jar app.jar
 EXPOSE 8080
-
-# ==> 1
-ARG ENV
-ENV SPRING_PROFILES_ACTIVE $ENV
-COPY application-$ENV.yml .
 ENTRYPOINT ["java", "-jar", "app.jar"]
-# docker build -f ops/app/Dockerfile . -t edm --build-arg ENV=local
-# docker run -p 8080:8080 -t edm edm
-
-# ==> 2
-#ENTRYPOINT ["java", "-jar", "app.jar"]
-# docker build -f ops/app/Dockerfile . -t edm
-# docker run -e SPRING_PROFILES_ACTIVE=dev -p 8080:8080 -t edm edm
+# docker build -f ops/app/Dockerfile . -t edm-app
+# docker run -e SPRING_PROFILES_ACTIVE=local -p 8080:8080 -t edm-app edm-app
