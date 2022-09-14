@@ -20,4 +20,4 @@ COPY --from=build app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 # docker build -f ops/app/Dockerfile . -t edm-app
-# docker run -e SPRING_PROFILES_ACTIVE=local -p 8080:8080 -t edm-app edm-app
+# docker run -e SPRING_PROFILES_ACTIVE=local -e VAULT_URI=... -p 8080:8080 -t edm-app edm-app

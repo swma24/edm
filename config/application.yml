@@ -11,6 +11,7 @@ spring:
   cloud:
     vault:
       enabled: false
+
 ---
 
 spring:
@@ -21,7 +22,8 @@ spring:
   cloud:
     vault:
       enabled: true
-      uri: ...
+      fail-fast: true
+      uri: ${VAULT_URI}
       authentication: AWS_IAM
       kv:
         backend: secrets
