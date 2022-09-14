@@ -4,6 +4,7 @@ COPY gradle gradle
 COPY gradlew .
 COPY settings.gradle.kts .
 COPY build.gradle.kts .
+RUN ./gradlew build -x test --parallel --continue > /dev/null 2>&1 || true # caching dependencies
 COPY service service
 COPY app app
 RUN ./gradlew app:bootJar -x test
@@ -15,9 +16,9 @@ RUN apk add --no-cache tzdata && \
 	cp /usr/share/zoneinfo/$TZ /etc/localtime && \
 	echo $TZ > /etc/timezone && \
 	apk del tzdata
-COPY ops/app ops/app
+COPY config config
 COPY --from=build app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 # docker build -f ops/app/Dockerfile . -t edm-app
-# docker run -e SPRING_PROFILES_ACTIVE=local -e VAULT_URI=... -p 8080:8080 -t edm-app edm-app
+# docker run -e SPRING_PROFILES_ACTIVE=local -e VAULT_URI=... -p 8080:8080 -t edm-app

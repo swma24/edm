@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController
 @SpringBootApplication
 class EdmApplication {
 
-	@Value("\${password}")
-	lateinit var password: String
+	@Value("\${spring.datasource.url}")
+	lateinit var myConf: String
 
 	@EventListener(ApplicationReadyEvent::class)
 	fun init() {
-		println("Hello! password: $password")
+		println("Hello! myConf: $myConf")
 	}
 }
 
