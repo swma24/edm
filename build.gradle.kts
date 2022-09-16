@@ -1,11 +1,18 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
+
 plugins {
-	id("org.springframework.boot")
-	id("io.spring.dependency-management")
-	kotlin("jvm")
-	kotlin("plugin.spring")
+	val kotlinVersion = "1.7.10"
+	id("org.springframework.boot") version "2.7.3"
+	id("io.spring.dependency-management") version "1.0.13.RELEASE"
+//		id("com.ewerk.gradle.plugins.querydsl") version "1.0.10"
+	kotlin("jvm") version kotlinVersion
+	kotlin("kapt") version kotlinVersion
+	kotlin("plugin.spring") version kotlinVersion
+	kotlin("plugin.jpa") version kotlinVersion
+	kotlin("plugin.allopen") version kotlinVersion
+	kotlin("plugin.noarg") version kotlinVersion
 }
 
 
@@ -15,7 +22,6 @@ allprojects {
 
 	repositories {
 		mavenCentral()
-//		maven { url = uri("https://repo.spring.io/milestone") }
 	}
 }
 
@@ -25,21 +31,18 @@ subprojects {
 	apply(plugin = "org.jetbrains.kotlin.jvm")
 	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
 
-	java.sourceCompatibility = JavaVersion.VERSION_17
-//	extra["springCloudVersion"] = "2022.0.0-M4"
-	extra["springCloudVersion"] = "2021.0.4"
-
 	dependencies {
+		annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
+		implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
+		implementation("org.springframework.boot:spring-boot-starter-web")
+		testImplementation("org.springframework.boot:spring-boot-starter-test")
 //		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-//    implementation("org.springframework.cloud:spring-cloud-starter-task")
-//    implementation("org.springframework.cloud:spring-cloud-stream")
-//    implementation("org.springframework.cloud:spring-cloud-stream-binder-kafka-streams")
 	}
 
 	dependencyManagement {
 		imports {
-			mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+			mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.4")
 		}
 	}
 

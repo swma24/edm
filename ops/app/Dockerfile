@@ -7,7 +7,7 @@ COPY build.gradle.kts .
 RUN ./gradlew build -x test --parallel --continue > /dev/null 2>&1 || true # caching dependencies
 COPY service service
 COPY app app
-RUN ./gradlew app:bootJar -x test
+RUN ./gradlew app:bootJar
 
 FROM amazoncorretto:17.0.4-alpine AS run
 

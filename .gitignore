@@ -39,4 +39,4 @@ out/
 ### MacOS ###
 .DS_Store
 
-application-local.yml
+application-*.yml
