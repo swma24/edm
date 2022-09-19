@@ -4,10 +4,11 @@ COPY gradle gradle
 COPY gradlew .
 COPY settings.gradle.kts .
 COPY build.gradle.kts .
-RUN ./gradlew build -x test --parallel --continue > /dev/null 2>&1 || true # caching dependencies
+RUN ./gradlew dependencies # caching dependencies
 COPY service service
 COPY app app
-RUN ./gradlew app:bootJar
+RUN ./gradlew clean
+RUN ./gradlew app:bootJar --parallel
 
 FROM amazoncorretto:17.0.4-alpine AS run
 
@@ -21,4 +22,4 @@ COPY --from=build app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 # docker build -f ops/app/Dockerfile . -t edm-app
-# docker run -e SPRING_PROFILES_ACTIVE=local -e VAULT_URI=... -p 8080:8080 -t edm-app
+# docker run -e SPRING_PROFILES_ACTIVE=test -e VAULT_URI=... -p 8080:8080 -t edm-app

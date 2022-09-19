@@ -7,6 +7,6 @@ plugins {
 dependencies {
 }
 
-tasks.withType<BootJar> {
+tasks.bootJar {
     enabled = false
 }
