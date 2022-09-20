@@ -1,6 +1,12 @@
 spring:
   application:
     name: edm
+management:
+  endpoints:
+    enabled-by-defaults: false
+  endpoint:
+    health:
+      enabled: true
 
 ---
 
