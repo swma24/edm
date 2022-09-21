@@ -1,12 +1,21 @@
 spring:
   application:
     name: edm
+  cloud:
+    discovery:
+      enabled: false
+    service-registry:
+      auto-registration:
+        enabled: false
+
 management:
   endpoints:
-    enabled-by-defaults: false
+    web:
+      exposure:
+        include: health
   endpoint:
     health:
-      enabled: true
+      show-details: always
 
 ---
 
