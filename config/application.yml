@@ -16,9 +16,7 @@ management:
   endpoint:
     health:
       show-details: always
-
 ---
-
 spring:
   config:
     activate:
@@ -26,20 +24,23 @@ spring:
   cloud:
     vault:
       enabled: false
-
 ---
-
 spring:
   config:
     activate:
-      on-profile: test,dev
+      on-profile: dev,stg,prd
     import: vault://
   cloud:
     vault:
       enabled: true
       fail-fast: true
-      uri: ${VAULT_URI}
+      uri: https://${VAULT_HOST}
       authentication: AWS_IAM
+      aws-iam:
+        role: ${spring.profiles.active}-edm-role
+        aws-path: aws
+        server-name: ${VAULT_HOST}
+        endpoint-uri: https://sts.ap-northeast-2.amazonaws.com
       kv:
         backend: secrets
         default-context: ${spring.application.name}

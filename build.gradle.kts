@@ -35,8 +35,10 @@ subprojects {
 		annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
 //		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-		implementation("org.springframework.cloud:spring-cloud-starter-vault-config")
 		implementation("org.springframework.boot:spring-boot-starter-web")
+		runtimeOnly("org.springframework.boot:spring-boot-starter-actuator")
+		runtimeOnly("org.springframework.cloud:spring-cloud-starter-vault-config")
+		runtimeOnly("com.amazonaws:aws-java-sdk-core:1.12.305") // for Vault AWS_IAM authentication
 		testImplementation("org.springframework.boot:spring-boot-starter-test")
 	}
 
