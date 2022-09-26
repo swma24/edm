@@ -7,9 +7,9 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties("spring")
 data class AppProperties(
-    val user: User
+    val datasource: DataSource
 ) {
-    data class User(
-        val name: String
+    data class DataSource(
+        val url: String
     )
 }

@@ -16,7 +16,7 @@ class EdmApplication (
 ) {
 	@EventListener(ApplicationReadyEvent::class)
 	fun init() {
-		println("Hello ${appProperties.user.name}")
+		println("Hello ${appProperties.datasource.url}")
 	}
 }
 

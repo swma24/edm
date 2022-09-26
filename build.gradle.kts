@@ -35,17 +35,25 @@ subprojects {
 		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 		implementation("org.springframework.boot:spring-boot-starter-web")
+		implementation("org.springframework.boot:spring-boot-starter-log4j2")
+		implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {
 			exclude(module = "mockito-core")
 		}
 		testImplementation("com.ninja-squad:springmockk:3.1.1")
 	}
 
+	configurations {
+		all {
+			exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+		}
+	}
+
 	tasks {
 		compileKotlin {
 			kotlinOptions {
 				freeCompilerArgs = listOf("-Xjsr305=strict")
-				jvmTarget = JavaVersion.VERSION_17.toString()
+				jvmTarget = "17"
 			}
 		}
 		test {
