@@ -5,17 +5,25 @@ import com.example.edm.repository.BankAccountRepository
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.data.repository.findByIdOrNull
 
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BankAccountRepositoryTest {
     @Autowired
     lateinit var repository: BankAccountRepository
 
+    @Value("\${spring.datasource.url}")
+    lateinit var datasourceUrl: String
+
     @Test
     fun `when get bank account then return bank account`() {
+        println("datasource url: $datasourceUrl")
+
         // given
         val bankAccount = BankAccount(
             bankCode = "012",

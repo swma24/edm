@@ -23,14 +23,3 @@ class EdmApplication (
 fun main(args: Array<String>) {
 	runApplication<EdmApplication>(*args)
 }
-
-//@RestController
-//class EdmController(
-//	val appProperties: AppProperties
-//) {
-//	@GetMapping("/")
-//	fun index(): String {
-//		println(appProperties)
-//		return appProperties.toString()
-//	}
-//}
