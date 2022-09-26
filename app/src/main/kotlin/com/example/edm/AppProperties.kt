@@ -1,12 +1,15 @@
-//package com.example.edm
-//
-//import org.springframework.boot.context.properties.ConfigurationProperties
-//
-////@ConfigurationProperties("spring.application")
-////data class AppProperties(
-////    val name: String,
-////)
-//@ConfigurationProperties("spring.datasource")
-//data class AppProperties(
-//    val password: String,
-//)
+package com.example.edm
+
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.boot.context.properties.ConstructorBinding
+
+
+@ConstructorBinding
+@ConfigurationProperties("spring")
+data class AppProperties(
+    val user: User
+) {
+    data class User(
+        val name: String
+    )
+}
