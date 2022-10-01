@@ -29,6 +29,12 @@ subprojects {
 		plugin("org.jetbrains.kotlin.plugin.spring")
 	}
 
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.4")
+		}
+	}
+
 	dependencies {
 		kapt("org.springframework.boot:spring-boot-configuration-processor")
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -36,16 +42,17 @@ subprojects {
 		implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 		implementation("org.springframework.boot:spring-boot-starter-web")
 		implementation("org.springframework.boot:spring-boot-starter-log4j2")
-		implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
+		implementation("com.fasterxml.jackson.core:jackson-databind")
+		runtimeOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
 		testImplementation("org.springframework.boot:spring-boot-starter-test") {
 			exclude(module = "mockito-core")
 		}
 		testImplementation("com.ninja-squad:springmockk:3.1.1")
-	}
 
-	configurations {
-		all {
-			exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+		modules {
+			module("org.springframework.boot:spring-boot-starter-logging") {
+				replacedBy("org.springframework.boot:spring-boot-starter-log4j2")
+			}
 		}
 	}
 

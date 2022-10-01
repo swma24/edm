@@ -5,7 +5,8 @@ COPY gradlew .
 COPY settings.gradle.kts .
 COPY build.gradle.kts .
 RUN ./gradlew dependencies # caching dependencies
-COPY service service
+COPY client client
+COPY domain domain
 COPY app app
 RUN ./gradlew clean
 RUN ./gradlew app:bootJar --parallel
@@ -22,4 +23,4 @@ COPY --from=build app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 # docker build -f ops/app/Dockerfile . -t edm-app
-# docker run -e SPRING_PROFILES_ACTIVE=test -e VAULT_URI=... -p 8080:8080 -t edm-app
+# docker run -e SPRING_PROFILES_ACTIVE=dev -e VAULT_HOST=... -p 8080:8080 -t edm-app

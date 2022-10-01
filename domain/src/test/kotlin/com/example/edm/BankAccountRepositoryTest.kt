@@ -13,9 +13,9 @@ import org.springframework.data.repository.findByIdOrNull
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class BankAccountRepositoryTest {
-    @Autowired
-    lateinit var repository: BankAccountRepository
+class BankAccountRepositoryTest(
+    @Autowired val repository: BankAccountRepository
+) {
 
     @Value("\${spring.datasource.url}")
     lateinit var datasourceUrl: String
